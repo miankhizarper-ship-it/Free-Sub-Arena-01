@@ -1,0 +1,533 @@
+/* ==========================================================================
+   FreeSub SaaS Platform — Developer-First Dark SaaS Design System
+   Built on Bootstrap 5.3 + custom CSS variables
+   ========================================================================== */
+
+:root {
+    --fs-bg-base: #070b14;
+    --fs-bg-elevated: #0e1526;
+    --fs-bg-card: #111a2e;
+    --fs-bg-card-hover: #152038;
+    --fs-bg-input: #0a101f;
+    --fs-border: rgba(148, 163, 184, 0.14);
+    --fs-border-strong: rgba(148, 163, 184, 0.26);
+
+    --fs-text-primary: #f8fafc;
+    --fs-text-secondary: #94a3b8;
+    --fs-text-muted: #64748b;
+
+    --fs-accent: #38bdf8;
+    --fs-accent-strong: #0ea5e9;
+    --fs-accent-indigo: #6366f1;
+    --fs-accent-glow: rgba(56, 189, 248, 0.18);
+
+    --fs-success: #10b981;
+    --fs-success-soft: rgba(16, 185, 129, 0.14);
+    --fs-warning: #f59e0b;
+    --fs-warning-soft: rgba(245, 158, 11, 0.14);
+    --fs-danger: #ef4444;
+    --fs-danger-soft: rgba(239, 68, 68, 0.14);
+    --fs-cloudflare: #f6821f;
+    --fs-cloudflare-soft: rgba(246, 130, 31, 0.16);
+
+    --fs-radius-sm: 0.5rem;
+    --fs-radius-md: 0.75rem;
+    --fs-radius-lg: 1rem;
+    --fs-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --fs-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+html,
+body {
+    background-color: var(--fs-bg-base);
+    color: var(--fs-text-primary);
+    font-family: var(--fs-font-sans);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-image:
+        radial-gradient(circle at 15% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 5%, rgba(99, 102, 241, 0.08) 0%, transparent 45%);
+    background-attachment: fixed;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.font-mono {
+    font-family: var(--fs-font-mono) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Navbar & Navigation
+   -------------------------------------------------------------------------- */
+.fs-navbar {
+    background: rgba(7, 11, 20, 0.84);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--fs-border);
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.fs-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    color: var(--fs-text-primary);
+    text-decoration: none;
+}
+
+.fs-brand:hover {
+    color: var(--fs-text-primary);
+}
+
+.fs-brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--fs-accent) 0%, var(--fs-accent-indigo) 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #04101d;
+    font-weight: 800;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+.fs-nav-link {
+    color: var(--fs-text-secondary) !important;
+    font-weight: 500;
+    font-size: 0.92rem;
+    transition: color 0.15s ease;
+}
+
+.fs-nav-link:hover,
+.fs-nav-link.active {
+    color: var(--fs-text-primary) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Cards, Panels & Surfaces
+   -------------------------------------------------------------------------- */
+.fs-card {
+    background-color: var(--fs-bg-card);
+    border: 1px solid var(--fs-border);
+    border-radius: var(--fs-radius-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.26);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.fs-card-interactive:hover {
+    border-color: var(--fs-border-strong);
+    background-color: var(--fs-bg-card-hover);
+    transform: translateY(-2px);
+}
+
+.fs-card-header {
+    padding: 1.15rem 1.4rem;
+    border-bottom: 1px solid var(--fs-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.fs-card-body {
+    padding: 1.4rem;
+}
+
+.fs-danger-card {
+    border-color: rgba(239, 68, 68, 0.32);
+    background: linear-gradient(180deg, rgba(239, 68, 68, 0.05) 0%, var(--fs-bg-card) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Hero & Landing Page Elements
+   -------------------------------------------------------------------------- */
+.fs-hero {
+    padding: 4.5rem 0 3.5rem;
+    position: relative;
+}
+
+.fs-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.38rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--fs-accent);
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.fs-hero-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+}
+
+.fs-gradient-text {
+    background: linear-gradient(95deg, #38bdf8 0%, #818cf8 55%, #c084fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.fs-search-shell {
+    background: var(--fs-bg-elevated);
+    border: 1px solid var(--fs-border-strong);
+    border-radius: var(--fs-radius-lg);
+    padding: 0.75rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(56, 189, 248, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   Forms, Inputs & Buttons
+   -------------------------------------------------------------------------- */
+.fs-input,
+.form-control,
+.form-select {
+    background-color: var(--fs-bg-input) !important;
+    border: 1px solid var(--fs-border-strong) !important;
+    color: var(--fs-text-primary) !important;
+    border-radius: var(--fs-radius-sm);
+    padding: 0.62rem 0.88rem;
+    font-size: 0.94rem;
+}
+
+.fs-input::placeholder,
+.form-control::placeholder {
+    color: var(--fs-text-muted) !important;
+}
+
+.fs-input:focus,
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--fs-accent) !important;
+    box-shadow: 0 0 0 3px var(--fs-accent-glow) !important;
+    outline: none;
+}
+
+.input-group-text {
+    background-color: #131d33 !important;
+    border: 1px solid var(--fs-border-strong) !important;
+    color: var(--fs-text-secondary) !important;
+    font-family: var(--fs-font-mono);
+    font-size: 0.9rem;
+}
+
+.form-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--fs-text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.btn-fs-primary {
+    background: linear-gradient(135deg, var(--fs-accent-strong) 0%, var(--fs-accent-indigo) 100%);
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: var(--fs-radius-sm);
+    padding: 0.6rem 1.2rem;
+    transition: filter 0.15s ease, transform 0.12s ease;
+}
+
+.btn-fs-primary:hover,
+.btn-fs-primary:focus {
+    color: #ffffff;
+    filter: brightness(1.1);
+}
+
+.btn-fs-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-fs-outline {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--fs-border-strong);
+    color: var(--fs-text-primary);
+    font-weight: 500;
+    border-radius: var(--fs-radius-sm);
+    padding: 0.55rem 1.05rem;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-fs-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: var(--fs-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Badges, Status Chips & Record Type Pills
+   -------------------------------------------------------------------------- */
+.fs-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+    padding: 0.28rem 0.68rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.fs-badge-active,
+.fs-badge-success {
+    background: var(--fs-success-soft);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.fs-badge-pending,
+.fs-badge-warning {
+    background: var(--fs-warning-soft);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.fs-badge-suspended,
+.fs-badge-danger {
+    background: var(--fs-danger-soft);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.fs-badge-neutral {
+    background: rgba(148, 163, 184, 0.12);
+    color: #cbd5e1;
+    border: 1px solid var(--fs-border);
+}
+
+.fs-badge-proxy-on {
+    background: var(--fs-cloudflare-soft);
+    color: #fb923c;
+    border: 1px solid rgba(246, 130, 31, 0.35);
+}
+
+.fs-badge-proxy-off {
+    background: rgba(100, 116, 139, 0.18);
+    color: #94a3b8;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.fs-type-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 56px;
+    padding: 0.22rem 0.55rem;
+    border-radius: 6px;
+    font-family: var(--fs-font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    border: 1px solid transparent;
+}
+
+.fs-type-A {
+    background: rgba(56, 189, 248, 0.14);
+    color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.28);
+}
+
+.fs-type-AAAA {
+    background: rgba(129, 140, 248, 0.14);
+    color: #818cf8;
+    border-color: rgba(129, 140, 248, 0.28);
+}
+
+.fs-type-CNAME {
+    background: rgba(16, 185, 129, 0.14);
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.28);
+}
+
+.fs-type-MX {
+    background: rgba(245, 158, 11, 0.14);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.28);
+}
+
+.fs-type-TXT {
+    background: rgba(192, 132, 252, 0.14);
+    color: #c084fc;
+    border-color: rgba(192, 132, 252, 0.28);
+}
+
+/* --------------------------------------------------------------------------
+   Tables
+   -------------------------------------------------------------------------- */
+.fs-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--fs-text-primary);
+    --bs-table-border-color: var(--fs-border);
+    margin-bottom: 0;
+}
+
+.fs-table thead th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--fs-text-secondary);
+    font-weight: 600;
+    background: rgba(15, 23, 42, 0.55);
+    border-bottom: 1px solid var(--fs-border);
+    padding: 0.85rem 1rem;
+}
+
+.fs-table tbody td {
+    padding: 0.95rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--fs-border);
+}
+
+.fs-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.fs-table tbody tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* --------------------------------------------------------------------------
+   InfinityFree-Style Management Tabs & Property Grid
+   -------------------------------------------------------------------------- */
+.fs-tabs {
+    border-bottom: 1px solid var(--fs-border);
+    gap: 0.35rem;
+}
+
+.fs-tabs .nav-link {
+    color: var(--fs-text-secondary);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 0.85rem 1.15rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.fs-tabs .nav-link:hover {
+    color: var(--fs-text-primary);
+}
+
+.fs-tabs .nav-link.active {
+    color: var(--fs-accent);
+    background: transparent;
+    border-bottom-color: var(--fs-accent);
+}
+
+.fs-prop-item {
+    padding: 0.9rem 1rem;
+    background: rgba(10, 16, 31, 0.6);
+    border: 1px solid var(--fs-border);
+    border-radius: var(--fs-radius-md);
+}
+
+.fs-prop-label {
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--fs-text-muted);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.fs-prop-value {
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--fs-text-primary);
+    word-break: break-all;
+}
+
+/* --------------------------------------------------------------------------
+   Modals, Callouts & Toasts
+   -------------------------------------------------------------------------- */
+.modal-content.fs-modal {
+    background-color: var(--fs-bg-card);
+    border: 1px solid var(--fs-border-strong);
+    border-radius: var(--fs-radius-lg);
+    color: var(--fs-text-primary);
+}
+
+.modal-content.fs-modal .modal-header,
+.modal-content.fs-modal .modal-footer {
+    border-color: var(--fs-border);
+}
+
+.fs-callout {
+    border-radius: var(--fs-radius-md);
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--fs-border);
+    background: rgba(56, 189, 248, 0.06);
+}
+
+.fs-callout-cloudflare {
+    background: rgba(246, 130, 31, 0.07);
+    border-color: rgba(246, 130, 31, 0.28);
+}
+
+.fs-progress {
+    height: 8px;
+    background-color: rgba(148, 163, 184, 0.15);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.fs-progress-bar {
+    background: linear-gradient(90deg, var(--fs-accent) 0%, var(--fs-accent-indigo) 100%);
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.fs-footer {
+    border-top: 1px solid var(--fs-border);
+    background: rgba(7, 11, 20, 0.75);
+    padding: 1.75rem 0;
+    color: var(--fs-text-muted);
+    font-size: 0.875rem;
+}
+
+.fs-copy-btn {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.78rem;
+    border-radius: 6px;
+}
+
+.fs-truncate-target {
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+/* Custom Proxy Switch */
+.form-check-input.fs-proxy-switch:checked {
+    background-color: var(--fs-cloudflare);
+    border-color: var(--fs-cloudflare);
+}
