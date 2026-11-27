@@ -208,7 +208,11 @@ if (!extension_loaded('pdo_mysql')) {
         $printLine('PASS', 'MySQL Connection', "Connected to `{$dbName}` @ {$dbHost}:{$dbPort} (Server {$mysqlVer})");
     } catch (PDOException $e) {
         $printLine('FAIL', 'MySQL Connection', $e->getMessage());
-        if (!$shouldInitDb) {
+        if (str_contains(strtolower($dbHost), 'infinityfree.com')) {
+            echo "         Note: InfinityFree (`{$dbHost}`) blocks external/remote MySQL connections.\n";
+            echo "         Scripts running on your InfinityFree hosting account can connect to `{$dbHost}`,\n";
+            echo "         while local Windows testing requires a local MySQL instance (`127.0.0.1`).\n";
+        } elseif (!$shouldInitDb) {
             echo "         Hint: Verify MySQL is running, `.env` DB_* credentials are valid, or run `php setup-check.php --init-db`.\n";
         }
     }

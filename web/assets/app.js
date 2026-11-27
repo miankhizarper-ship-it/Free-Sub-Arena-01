@@ -333,8 +333,12 @@
             return null;
         }
         try {
-            const encodedPart = trimmed.replace(/^pk_(test|live)_/, '');
-            const decoded = atob(encodedPart).replace(/\$$/, '');
+            const encodedPart = trimmed
+                .replace(/^pk_(test|live)_/, '')
+                .replace(/-/g, '+')
+                .replace(/_/g, '/');
+            const padded = encodedPart + '='.repeat((4 - (encodedPart.length % 4)) % 4);
+            const decoded = atob(padded).replace(/\$$/, '');
             if (decoded && decoded.includes('.')) {
                 return `https://${decoded}`;
             }
