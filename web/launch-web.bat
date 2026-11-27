@@ -10,7 +10,7 @@ set "PROJECT_ROOT=%CD%"
 
 set "WEB_HOST=127.0.0.1"
 set "WEB_PORT=8000"
-set "WEB_URL=http://%WEB_HOST%:%WEB_PORT%"
+set "WEB_URL=http://localhost:%WEB_PORT%"
 
 echo ============================================================================
 echo   FreeSub User SaaS Web Application

@@ -354,8 +354,28 @@ final class ClerkAuth
         }
 
         if ($this->authorizedParties !== [] && isset($claims['azp']) && is_string($claims['azp'])) {
-            if (!in_array($claims['azp'], $this->authorizedParties, true)) {
-                throw new RuntimeException('JWT authorized party (azp) is not permitted.');
+            $tokenAzp = rtrim(trim($claims['azp']), '/');
+            $allowed = false;
+            foreach ($this->authorizedParties as $party) {
+                $normalizedParty = rtrim(trim($party), '/');
+                if ($normalizedParty === $tokenAzp) {
+                    $allowed = true;
+                    break;
+                }
+                // Treat localhost:<port> and 127.0.0.1:<port> as equivalent during local development
+                $altParty = str_contains($normalizedParty, '://localhost')
+                    ? str_replace('://localhost', '://127.0.0.1', $normalizedParty)
+                    : (str_contains($normalizedParty, '://127.0.0.1')
+                        ? str_replace('://127.0.0.1', '://localhost', $normalizedParty)
+                        : '');
+                if ($altParty !== '' && $altParty === $tokenAzp) {
+                    $allowed = true;
+                    break;
+                }
+            }
+
+            if (!$allowed) {
+                throw new RuntimeException(sprintf('JWT authorized party "%s" is not permitted.', $tokenAzp));
             }
         }
     }
