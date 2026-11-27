@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-require_once dirname(__DIR__) . '/core/config.php';
+require_once __DIR__ . '/_paths.php';
+require_once $coreDirectory . '/config.php';
 
 use FreeSub\Core\Config;
 

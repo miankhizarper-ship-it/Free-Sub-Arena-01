@@ -1,0 +1,17 @@
+# Shared-host deployment: this file must be copied into the document root.
+Options -Indexes
+
+# Required for nested sensitive directories (including /core/cache and /.git).
+# Do not wrap in IfModule: if rewrite is unavailable, fail closed rather than
+# silently exposing application secrets.
+RewriteEngine On
+RewriteCond %{REQUEST_URI} (^|/)(core|database|\.git[^/]*)(/|$) [NC]
+RewriteRule ^ - [F,L]
+
+# Also block sensitive files regardless of their parent directory.
+<FilesMatch "(?i)^(\.env(\..*)?|\.git.*|.*\.sql|setup-check\.php)$">
+    Require all denied
+</FilesMatch>
+
+# Pass bearer tokens through CGI/FastCGI to PHP.
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1

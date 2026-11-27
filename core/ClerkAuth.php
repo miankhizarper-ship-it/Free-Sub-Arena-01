@@ -284,26 +284,34 @@ final class ClerkAuth
      */
     public static function extractTokenFromRequest(): ?string
     {
-        $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? null;
+        $candidates = [
+            $_SERVER['HTTP_AUTHORIZATION'] ?? null,
+            $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? null,
+        ];
 
-        if ($authHeader === null && function_exists('getallheaders')) {
-            $headers = getallheaders();
+        foreach (['apache_request_headers', 'getallheaders'] as $headerFunction) {
+            if (!function_exists($headerFunction)) {
+                continue;
+            }
+            $headers = $headerFunction();
             if (is_array($headers)) {
                 foreach ($headers as $name => $value) {
-                    if (strcasecmp((string) $name, 'Authorization') === 0 && is_string($value)) {
-                        $authHeader = $value;
-                        break;
+                    if (strcasecmp((string) $name, 'Authorization') === 0) {
+                        $candidates[] = $value;
                     }
                 }
             }
         }
 
-        if (is_string($authHeader) && preg_match('/^\s*Bearer\s+(.+)\s*$/i', $authHeader, $matches)) {
-            return trim($matches[1]);
+        foreach ($candidates as $authHeader) {
+            if (is_string($authHeader) && preg_match('/^\s*Bearer\s+(\S+)\s*$/i', $authHeader, $matches)) {
+                return $matches[1];
+            }
         }
 
-        if (!empty($_COOKIE['__session']) && is_string($_COOKIE['__session'])) {
-            return trim($_COOKIE['__session']);
+        if (isset($_COOKIE['__session']) && is_string($_COOKIE['__session'])) {
+            $token = trim($_COOKIE['__session']);
+            return $token !== '' ? $token : null;
         }
 
         return null;
