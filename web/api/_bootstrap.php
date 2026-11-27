@@ -14,11 +14,12 @@ use FreeSub\Core\ClerkAuth;
 use FreeSub\Core\Config;
 use FreeSub\Core\Database;
 
-require_once dirname(__DIR__, 2) . '/core/config.php';
-require_once dirname(__DIR__, 2) . '/core/Database.php';
-require_once dirname(__DIR__, 2) . '/core/Validator.php';
-require_once dirname(__DIR__, 2) . '/core/ClerkAuth.php';
-require_once dirname(__DIR__, 2) . '/core/CloudflareService.php';
+require_once dirname(__DIR__) . '/_paths.php';
+require_once $coreDirectory . '/config.php';
+require_once $coreDirectory . '/Database.php';
+require_once $coreDirectory . '/Validator.php';
+require_once $coreDirectory . '/ClerkAuth.php';
+require_once $coreDirectory . '/CloudflareService.php';
 
 /**
  * Structured HTTP API Exception carrying an explicit HTTP status code and optional error code/details.

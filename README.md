@@ -52,6 +52,63 @@ FreeSub/
 
 ---
 
+## InfinityFree Shared Hosting Deployment
+
+> **Not yet complete:** the remote Admin Bridge and `ADMIN_REMOTE_API_URL` support
+> have not been implemented. The local Admin Desktop still requires direct MySQL
+> access; do not expose it or use a public proxy as a workaround. Test this setup
+> on a private staging site before relying on it in production.
+
+1. Use HTTPS and confirm that the host supports PHP 8.2+, the extensions listed
+   below, Apache `mod_rewrite`, `mod_setenvif`, `Require all denied`, and
+   `.htaccess` overrides. Prefer a host that lets you put `core` and `.env`
+   **outside** the public document root. The following layout depends entirely
+   on the server honoring the supplied access rules; if any check fails, remove
+   the sensitive files immediately and do not deploy this layout.
+2. Upload the **contents** of `web/` (including the hidden `.htaccess`) into
+   `htdocs/`, then upload `core/` and a production `.env` to `htdocs/`:
+
+   ```text
+   htdocs/
+   ├── .htaccess          # web/.htaccess
+   ├── .env               # private configuration, never commit
+   ├── _paths.php         # web/_paths.php
+   ├── index.php          # and other web/ files
+   ├── api/               # web/api/
+   ├── assets/            # web/assets/
+   └── core/              # core/, including writable cache/
+   ```
+
+   Do not upload `admin-desktop/`, `.git/`, `setup-check.php` or `database/`.
+   Import `database/schema.sql` using the hosting provider's phpMyAdmin instead;
+   avoid rerunning the schema on an existing installation because its seed SQL
+   resets settings. Configure the host-provided DB credentials in `.env`, set
+   `APP_ENV=production`, `APP_DEBUG=false`, and `APP_URL` to your HTTPS origin.
+   Use a strong, unique local admin passcode. `core/cache` must be writable by
+   PHP, but should never be readable over HTTP.
+3. Before entering live credentials or importing real data, verify access rules
+   with harmless test files and an HTTPS client. From another machine run:
+
+   ```sh
+   curl -sS -o /dev/null -w '%{http_code}\n' https://your-domain.example/.env
+   curl -sS -o /dev/null -w '%{http_code}\n' https://your-domain.example/.git/config
+   curl -sS -o /dev/null -w '%{http_code}\n' https://your-domain.example/core/config.php
+   curl -sS -o /dev/null -w '%{http_code}\n' https://your-domain.example/database/schema.sql
+   curl -sS -o /dev/null -w '%{http_code}\n' https://your-domain.example/setup-check.php
+   ```
+
+   The expected status is 403; a 404 for files deliberately not uploaded is
+   also acceptable. Test an actual harmless `.sql` file and a directory under
+   `htdocs`, too; neither should be downloadable or listed. A 200, redirect to
+   public content, or 500 does **not** establish protection. PHP's built-in
+   server does not process `.htaccess`, so it cannot verify these rules.
+4. In Clerk, configure the production instance and its allowed application
+   origin(s) to match the HTTPS site. Set `CLERK_PUBLISHABLE_KEY`,
+   `CLERK_ISSUER`, `CLERK_JWKS_URL` and `CLERK_AUTHORIZED_PARTIES` in the
+   hosted `.env`. If using a Clerk development instance, follow Clerk's current
+   restrictions on development domains. Verify an actual sign-in and API call
+   on the host: preserving Authorization depends on its Apache/CGI setup.
+
 ## 2. Step-by-Step Local Setup on Windows (PHP 8.3 & MySQL 8+)
 
 ### Prerequisites
